@@ -20,6 +20,7 @@ from bucket import BucketManager
 session = None
 bucket_manager = None
 
+
 @click.group()
 @click.option('--profile', default=None, help="Use a given AWS profile.")
 def cli(profile):
@@ -30,7 +31,6 @@ def cli(profile):
         session_cfg['profile_name'] = profile
     session = boto3.Session(**session_cfg)
     bucket_manager = BucketManager(session)
-    
 
 
 @cli.command('list-buckets')
@@ -65,6 +65,7 @@ def setup_bucket(bucket):
 def sync(pathname, bucket):
     """Sync the content of website to bucket."""
     bucket_manager.sync(pathname, bucket)
+    print(bucket_manager.get_bucket_url(bucket_manager.s3.Bucket(bucket)))
 
 
 if __name__ == '__main__':
