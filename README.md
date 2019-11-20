@@ -14,3 +14,4 @@ SkyBucket currently has the following features:
 - Create and setup s3 bucket
 - Sync directory tree to the bucket
 - Set AWS profile --profile=<profile_name>
+- Configure Route 53 domain
