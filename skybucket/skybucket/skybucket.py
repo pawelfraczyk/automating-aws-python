@@ -17,24 +17,27 @@ import click
 import boto3
 from bucket import BucketManager
 from domain import DomainManager
+from certificate import CertificateManager
 import util
 
 session = None
 bucket_manager = None
 domain_manager = None
+cert_manager = None
 
 
 @click.group()
 @click.option('--profile', default=None, help="Use a given AWS profile.")
 def cli(profile):
     """Webotron deploys websites to AWS."""
-    global session, bucket_manager, domain_manager
+    global session, bucket_manager, domain_manager, cert_manager
     session_cfg = {}
     if profile:
         session_cfg['profile_name'] = profile
     session = boto3.Session(**session_cfg)
     bucket_manager = BucketManager(session)
     domain_manager = DomainManager(session)
+    cert_manager = CertificateManager(session)
 
 
 @cli.command('list-buckets')
@@ -83,6 +86,12 @@ def setup_domain(domain):
     endpoint = util.get_endpoint(bucket_manager.get_region_name(bucket))
     domain_manager.create_s3_domain_record(zone, domain, endpoint)
     print("Domain configured: http://{}".format(domain))
+
+
+@cli.command('find-cert')
+@click.argument('domain')
+def find_cert(domain):
+    print(cert_manager.find_matching_cert(domain))
 
 
 if __name__ == '__main__':
