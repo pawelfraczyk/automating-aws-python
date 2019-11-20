@@ -15,11 +15,11 @@ SkyBucket automates the process of deploying static websites to AWS.
 import click
 
 import boto3
-from bucket import BucketManager
-from domain import DomainManager
-from certificate import CertificateManager
-from cdn import CloudFrontManager
-import util
+from skybucket import util
+from skybucket.bucket import BucketManager
+from skybucket.cdn import CloudFrontManager
+from skybucket.certificate import CertificateManager
+from skybucket.domain import DomainManager
 
 session = None
 bucket_manager = None

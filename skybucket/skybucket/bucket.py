@@ -4,13 +4,12 @@
 
 import mimetypes
 from functools import reduce
-
+from hashlib import md5
 from pathlib import Path
 
 import boto3
-import util
 from botocore.exceptions import ClientError
-from hashlib import md5
+from skybucket import util
 
 
 class BucketManager:
