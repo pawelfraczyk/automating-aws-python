@@ -3,12 +3,14 @@ service: slacknot-notifier
 provider:
   name: aws
   runtime: python3.7
-  profile: awsPython
+  profile: ${file(../config.${self:provider.stage}.json):notifier.profile}
   region: us-east-2
+  environment:
+    SLACK_WEBHOOK_URL: ${file(../config.${self:provider.stage}.json):notifier.slack_webhook_url}
 
 functions:
-  hello:
-    handler: handler.hello
+  post-to-slack:
+    handler: handler.post_to_slack
     events:
       - cloudwatchEvent:
           event:
