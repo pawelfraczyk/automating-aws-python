@@ -21,3 +21,6 @@ functions:
             detail:
               AutoScalingGroupName:
                 - "Slacknot Scaling Group"
+
+plugins:
+  - serverless-python-requirements

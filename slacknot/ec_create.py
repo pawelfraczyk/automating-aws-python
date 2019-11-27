@@ -23,8 +23,7 @@ filter = [{'Name': 'name', 'Values': [ami_name]}]
 filters = [{'Name': 'name', 'Values': [ami_name]}]
 list(ec2.images.filter(Owners=['amazon'], Filters=filters))
 instances = ec2.create_instances(ImageId=img.id, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=key.key_name)
-instances = ec2.create_instances(ImageId=img.id, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=key.key_name)
-instances
+
 ec2.Instances
 ec2.Instance(id='i-0c974a90edf1cd0f9')
 inst.terminate()

@@ -25,4 +25,4 @@ Slacknot is an app to notify team on Slack about changes to your AWS account usi
 
 Currently features of Slacknot:
 
--
+- Send notifications to Slack when CloudWatch event happen.
