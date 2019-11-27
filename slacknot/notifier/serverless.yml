@@ -1,0 +1,21 @@
+service: slacknot-notifier
+
+provider:
+  name: aws
+  runtime: python3.7
+  profile: awsPython
+  region: us-east-2
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - cloudwatchEvent:
+          event:
+            source:
+              - "aws.autoscaling"
+            detail-type:
+              - "EC2 Instance Launch Successful"
+            detail:
+              AutoScalingGroupName:
+                - "Slacknot Scaling Group"
