@@ -9,7 +9,7 @@ SkyBucket automates the process of deploying static websites to AWS.
     - Change properties to static website hosting
     - Sync local files to the bucket
 - Configure DNS with AWS Route 53
-- Configure a  Content Delivery Network and SSL with CloudFront
+- Configure a Content Delivery Network and SSL with CloudFront
 """
 
 import click
@@ -31,7 +31,7 @@ dist_manager = None
 @click.group()
 @click.option('--profile', default=None, help="Use a given AWS profile.")
 def cli(profile):
-    """Webotron deploys websites to AWS."""
+    """Skybucket deploys websites to AWS."""
     global session, bucket_manager, domain_manager, cert_manager, dist_manager
     session_cfg = {}
     if profile:
@@ -118,7 +118,7 @@ def setup_cdn(domain, bucket):
     zone = domain_manager.find_hosted_zone(domain) \
         or domain_manager.create_hosted_zone(domain)
 
-    domain_manager.create_cf_domain_record(zone, domain, dist['DomainName'])
+    dist_manager.create_cf_domain_record(zone, domain, dist['DomainName'])
     print("Domain configured: https://{}".format(domain))
 
     return
