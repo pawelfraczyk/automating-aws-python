@@ -1,0 +1,17 @@
+service: reko-lambda
+
+provider:
+  name: aws
+  runtime: python3.7
+  region: us-east-2
+  profile: ${file(../config.${self:provider.stage}.json):reko-lambda.profile}
+
+functions:
+  startProcessingVideo:
+    handler: handler.start_processing_video
+    events:
+      - s3:
+        bucket: ${file(../config.${self:provider.stage}.json):reko-lambda.videos_bucket}
+        event: s3:ObjectCreated:*
+        rules:
+          - suffix: .mp4
